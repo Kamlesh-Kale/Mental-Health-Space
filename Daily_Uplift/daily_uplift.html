@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Wellness Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        :root {
+            --bg-color: #f9f9f9;
+            --text-color: #333;
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --accent-color: #11cb9d;
+            --shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            --card-bg: #fff;
+            --border-radius: 12px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .dark-mode {
+            --bg-color: #121212;
+            --text-color: #f0f0f0;
+            --card-bg: #1e1e1e;
+            --shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 2.5rem;
+            text-align: center;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin: 20px;
+            position: relative;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        nav {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .quote-section {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            transition: opacity 0.5s;
+            margin-bottom: 1rem;
+        }
+
+        .quote-author {
+            font-size: 1rem;
+            color: var(--secondary-color);
+            font-weight: 600;
+            transition: opacity 0.5s;
+        }
+
+        .quote-controls {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .quote-btn {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .quote-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .wellness-tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            width: 90%;
+            max-width: 1000px;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tool-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .breathing-exercise {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .breathing-circle {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 50%;
+            margin: 2rem auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2rem;
+            animation: breathe 8s infinite ease-in-out;
+        }
+
+        @keyframes breathe {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+        }
+
+        .breathing-instructions {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .mood-tracker {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .mood-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .mood-btn {
+            background: var(--bg-color);
+            border: 2px solid var(--primary-color);
+            color: var(--text-color);
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .mood-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .mood-selected {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .mood-history {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+
+        footer {
+            background: var(--card-bg);
+            color: var(--text-color);
+            text-align: center;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin: 20px auto;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .breathing-circle {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mental Wellness Hub</h1>
+        <p>Your journey to mental well-being starts here</p>
+        <button class="theme-toggle" id="theme-toggle">🌙</button>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#tools">Wellness Tools</a></li>
+            <li><a href="#breathing">Breathing</a></li>
+            <li><a href="#mood">Mood Tracker</a></li>
+            <li><a href="#resources">Resources</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        
+        <section class="quote-section">
+            <p id="quote" class="quote">Take a deep breath. You are enough, just as you are.</p>
+            <p id="quote-author" class="quote-author">— Unknown</p>
+            <div class="quote-controls">
+                <button class="quote-btn" id="prev-quote">Previous</button>
+                <button class="quote-btn" id="next-quote">Next</button>
+            </div>
+        </section>
+
+        <section class="wellness-tools" id="tools">
+            <div class="tool-card">
+                <div class="tool-icon">🧘</div>
+                <h3>Meditation</h3>
+                <p>Practice mindfulness meditation to reduce stress and improve focus.</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">📝</div>
+                <h3>Journaling</h3>
+                <p>Express your thoughts and feelings through daily reflective writing.</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">🚶</div>
+                <h3>Exercise</h3>
+                <p>Stay active with regular physical activity to boost your mood.</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">😴</div>
+                <h3>Sleep Hygiene</h3>
+                <p>Improve your sleep quality with healthy bedtime routines.</p>
+            </div>
+        </section>
+
+        <section class="breathing-exercise" id="breathing">
+            <h2>Breathing Exercise</h2>
+            <div class="breathing-circle" id="breathing-circle">
+                <span id="breathing-text">Breathe</span>
+            </div>
+            <p class="breathing-instructions" id="breathing-instructions">Inhale as the circle expands, exhale as it contracts</p>
+        </section>
+
+        <section class="mood-tracker" id="mood">
+            <h2>Daily Mood Tracker</h2>
+            <p>How are you feeling today?</p>
+            <div class="mood-options">
+                <button class="mood-btn" data-mood="Great">Great 😁</button>
+                <button class="mood-btn" data-mood="Good">Good 🙂</button>
+                <button class="mood-btn" data-mood="Okay">Okay 😐</button>
+                <button class="mood-btn" data-mood="Down">Down 😔</button>
+                <button class="mood-btn" data-mood="Stressed">Stressed 😫</button>
+            </div>
+            <div class="mood-history">
+                <p id="mood-log">Your mood history will appear here after tracking.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CSBS-Devs. All rights reserved.</p>
+        <p>Made by Anuj, Rohan, Kamlesh, Vivek</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">Contact Us</a>
+        </div>
+    </footer>
+
+    
+    <script>
+        // Enhanced quotes with authors
+        const quotes = [
+            {
+                text: "Take a deep breath. You are enough, just as you are.",
+                author: "Unknown"
+            },
+            {
+                text: "Every day is a fresh start. Make it count.",
+                author: "Unknown"
+            },
+            {
+                text: "You are stronger than you know.",
+                author: "Unknown"
+            },
+            {
+                text: "Be patient with yourself. You're doing the best you can.",
+                author: "Unknown"
+            },
+            {
+                text: "Your mental health matters. Take care of yourself.",
+                author: "Unknown"
+            },
+            {
+                text: "Happiness can be found even in the darkest of times, if one only remembers to turn on the light.",
+                author: "Albus Dumbledore"
+            },
+            {
+                text: "Just because you don't know where you're going doesn't mean you're lost.",
+                author: "Unknown"
+            },
+            {
+                text: "The way I see it, if you want the rainbow, you gotta put up with the rain.",
+                author: "Dolly Parton"
+            },
+            {
+                text: "Self-care is how you take your power back.",
+                author: "Lalah Delia"
+            },
+            {
+                text: "You don't have to see the whole staircase, just take the first step.",
+                author: "Martin Luther King Jr."
+            }
+        ];
+
+        let currentQuoteIndex = 0;
+        const quoteElement = document.getElementById('quote');
+        const quoteAuthorElement = document.getElementById('quote-author');
+        const prevQuoteBtn = document.getElementById('prev-quote');
+        const nextQuoteBtn = document.getElementById('next-quote');
+
+        // Initialize theme
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        const savedTheme = localStorage.getItem('theme');
+        
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.textContent = '☀';
+        }
+
+        // Theme toggle functionality
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeToggle.textContent = '☀';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Quote navigation
+        function displayQuote(index) {
+            quoteElement.style.opacity = '0';
+            quoteAuthorElement.style.opacity = '0';
+            
+            setTimeout(() => {
+                quoteElement.textContent = quotes[index].text;
+                quoteAuthorElement.textContent = — ${quotes[index].author};
+                quoteElement.style.opacity = '1';
+                quoteAuthorElement.style.opacity = '1';
+            }, 500);
+        }
+
+        prevQuoteBtn.addEventListener('click', () => {
+            currentQuoteIndex = (currentQuoteIndex - 1 + quotes.length) % quotes.length;
+            displayQuote(currentQuoteIndex);
+        });
+
+        nextQuoteBtn.addEventListener('click', () => {
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+            displayQuote(currentQuoteIndex);
+        });
+
+        // Auto-rotate quotes
+        function changeQuote() {
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+            displayQuote(currentQuoteIndex);
+        }
+
+        let quoteInterval = setInterval(changeQuote, 10000); // Changed to 10 seconds for better user experience
+
+        // Reset interval when manually navigating
+        [prevQuoteBtn, nextQuoteBtn].forEach(btn => {
+            btn.addEventListener('click', () => {
+                clearInterval(quoteInterval);
+                quoteInterval = setInterval(changeQuote, 10000);
+            });
+        });
+
+        // Breathing exercise
+        const breathingText = document.getElementById('breathing-text');
+        const breathingInstructions = document.getElementById('breathing-instructions');
+
+        function updateBreathingText() {
+            const animationProgress = (Date.now() / 1000) % 8; // 8 seconds per cycle
+            
+            if (animationProgress < 4) { // First half of the animation (expanding)
+                breathingText.textContent = "Inhale";
+                breathingInstructions.textContent = "Breathe in slowly through your nose...";
+            } else { // Second half (contracting)
+                breathingText.textContent = "Exhale";
+                breathingInstructions.textContent = "Breathe out slowly through your mouth...";
+            }
+        }
+
+        setInterval(updateBreathingText, 100);
+
+        // Mood tracking
+        const moodButtons = document.querySelectorAll('.mood-btn');
+        const moodLog = document.getElementById('mood-log');
+        let moods = JSON.parse(localStorage.getItem('mood-history')) || [];
+
+        function updateMoodHistory() {
+            if (moods.length === 0) {
+                moodLog.textContent = "Your mood history will appear here after tracking.";
+                return;
+            }
+
+            moodLog.innerHTML = "<strong>Mood History:</strong><br>";
+            moods.slice(0, 7).forEach(entry => {
+                moodLog.innerHTML += ${entry.date}: ${entry.mood}<br>;
+            });
+        }
+
+        moodButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove selected class from all buttons
+                moodButtons.forEach(btn => btn.classList.remove('mood-selected'));
+                
+                // Add selected class to clicked button
+                this.classList.add('mood-selected');
+                
+                // Save mood
+                const today = new Date().toLocaleDateString();
+                const mood = this.getAttribute('data-mood');
+                
+                // Check if we already have a mood for today
+                const todayMoodIndex = moods.findIndex(entry => entry.date === today);
+                
+                if (todayMoodIndex !== -1) {
+                    moods[todayMoodIndex].mood = mood;
+                } else {
+                    moods.unshift({ date: today, mood: mood });
+                }
+                
+                // Keep only last 30 days
+                if (moods.length > 30) {
+                    moods = moods.slice(0, 30);
+                }
+                
+                localStorage.setItem('mood-history', JSON.stringify(moods));
+                updateMoodHistory();
+            });
+        });
+
+        // Initialize
+        updateMoodHistory();
+        displayQuote(currentQuoteIndex);
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

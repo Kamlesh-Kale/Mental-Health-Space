@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Wellness Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f6fa;
+        }
+
+        .container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tool-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-align: center;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tool-card.active {
+            background: #e3f2fd;
+        }
+
+        .tool-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-name {
+            margin: 0;
+            color: #2c3e50;
+        }
+
+        .content-area {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            min-height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="container">
+        <h1 class="title">Mental Wellness Tools</h1>
+        <div class="tools-grid">
+            <div class="tool-card active" data-tool="breathing">
+                <div class="tool-icon">🫁</div>
+                <h3 class="tool-name">Breathing Exercise</h3>
+            </div>
+
+            <div class="tool-card" data-tool="focus">
+                <div class="tool-icon">👁️</div>
+                <h3 class="tool-name">Eye Focus</h3>
+            </div>
+
+            <div class="tool-card" data-tool="gratitude">
+                <div class="tool-icon">📝</div>
+                <h3 class="tool-name">Gratitude Journal</h3>
+            </div>
+
+            <div class="tool-card" data-tool="meditation">
+                <div class="tool-icon">🧘</div>
+                <h3 class="tool-name">Meditation Timer</h3>
+            </div>
+        </div>
+
+        <div class="content-area" id="content">
+            <!-- Content will be loaded here -->
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

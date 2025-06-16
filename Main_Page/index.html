@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Support</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="/AI_Chatbot/floating-chatbot.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #ffffff;
+            overflow-x: hidden;
+            color: #333; /* Dark text for readability */
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            left: -250px;
+            top: 0;
+            background: linear-gradient(135deg, #014dd5 0%, #0162f5 100%);
+            color: white;
+            transition: left 0.3s ease-in-out;
+            padding-top: 60px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        
+        .sidebar a {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            transition: background 0.3s;
+        }
+        
+        .sidebar a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Sidebar Toggle Button */
+        .open-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #014dd5;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1100;
+            transition: left 0.3s ease-in-out, background 0.3s;
+            border: none;
+        }
+        
+        .open-btn:hover {
+            background: #012b85;
+        }
+        
+        /* Content */
+        .content {
+            margin-left: 0;
+            padding: 10px;
+            transition: margin-left 0.3s ease-in-out;
+            text-align: center;
+        }
+        
+        /* Expanding Content */
+        .expanded {
+            margin-left: 250px;
+        }
+        
+        /* Welcome Section */
+        .welcome-container {
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .welcome-container h2 {
+            color: #014dd5;
+            font-weight: 600;
+            font-size: 2.5rem;
+        }
+        
+        .welcome-container p {
+            font-size: 1.1rem;
+            color: #555;
+        }
+        
+        /* Quote Box */
+        .quote-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 320px;
+            background: #f1f5ff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-left: 5px solid #014dd5;
+            overflow: hidden;
+        }
+        
+        .quote {
+            font-size: 1rem;
+            color: #014dd5;
+            font-weight: 500;
+            opacity: 1;
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        }
+        
+        /* Animations for Quotes */
+        .quote.slide-out {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        
+        .quote.slide-in {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        /* Sidebar Open Effect */
+        .sidebar-open .open-btn {
+            left: 270px;
+        }        
+    </style>
+</head>
+<body>
+    <div class="open-btn" id="openBtn" onclick="toggleSidebar()">☰</div>
+    <div id="sidebar" class="sidebar">
+        <a href="/AI_Chatbot/floating-doctor.html">🤖 Visit Doctor AI</a>
+        <a href="/Test/test.html">😊 Take a Test</a>
+        <a href="/Wellness_Tools/wellness_tools.html">🧘 Wellness Tool</a>
+        <a href="/Daily_Uplift/daily_uplift.html">💡 Daily Uplift</a>
+        <a href="/Doctors/doctor.html">📝 Consult a Doctor</a>
+    </div>
+    <div id="content" class="content">
+        <div class="welcome-container">
+            <h2>Welcome to Your Mental Health Space</h2>
+            <p>Explore resources and tools for self-care.</p>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Heal together</h1>
+            <p>Personalized intensive mental healthcare</p>
+            <div class="hero-buttons">
+                <button class="get-started">Get Started</button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://www.kcl.ac.uk/newimages/ioppn/news-spotlights/new-guidelines-to-bridge-the-gap-between-psychiatric-and-physical-health-services-cropped-780x440.x2c2c35f0.jpg" alt="Mental Health Image">
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="info-section">
+        <div class="info-text">
+            <h2>Life-saving mental health treatment when you need it most</h2>
+         </div>
+        <div class="info-details">
+            <p>
+                This web-based mental health assessment tool is designed to help users assess their mental well-being through AI-driven analysis. It provides personalized insights, self-help resources, and professional guidance based on user responses and interactions.
+                <br><br>
+            </p>
+        </div>
+        <div class="feature-cards">
+            <div class="card">
+                <h3>AI Chatbot</h3>
+                <p>
+                    A conversational AI assistant that interacts with users to understand their mood, provide support, and suggest mental wellness activities.<br>Offers 24/7 availability for instant help and guidance.
+                </p>
+            </div>
+            <div class="card">
+                <h3>PHQ Questionnaire</h3>
+                <p>
+                    Implements the Patient Health Questionnaire (PHQ-9) for depression screening.<br>Provides an automated scoring system to help assess the severity of symptoms.
+                </p>
+            </div>
+            <div class="card">
+                <h3>Wellness Tool</h3>
+                <p>
+                    Offers exercises, guided meditations, and self-care techniques tailored to user needs. <br>Tracks progress over time and recommends new activities based on user feedback.
+                </p>
+            </div>
+            <div class="card">
+                <h3>Daily Uplift</h3>
+                <p>
+                    Delivers daily motivational quotes, affirmations, and positive thoughts.<br>Helps boost emotional resilience and maintain a positive mindset.
+                </p>
+            </div>
+        </div>
+    </section>
+    <div class="quote-container">
+        <p id="quote" class="quote">"Take a deep breath. You are enough, just as you are."</p>
+    </div>
+    
+
+    <!-- Floating Chatbot Toggle Button -->
+    <div class="floating-chatbot-toggle" id="floatingChatbotToggle">
+        <i class="fas fa-comment-medical"></i>
+    </div>
+
+    
+    <!-- Floating Chatbot Interface -->
+    <div class="floating-chatbot" id="floatingChatbot">
+        <div class="floating-chatbot-header" id="floatingChatbotHeader">
+            <div class="floating-chatbot-title">
+                <i class="fas fa-user-md"></i>
+                <h3>Doctor AI</h3>
+            </div>
+            <div class="floating-chatbot-controls">
+                <button id="minimizeChatbot">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button id="closeChatbot">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="floating-chatbot-body">
+            <div class="floating-chatbot-disclaimer">
+                <h4>Medical Disclaimer:</h4>
+                <p>This AI assistant is for informational purposes only and is not a substitute for professional medical
+                    advice.</p>
+            </div>
+
+            <div class="floating-chatbot-messages" id="floatingChatbotMessages">
+                <!-- Floating chat messages will appear here -->
+            </div>
+        </div>
+
+        <div class="floating-chatbot-input">
+            <form id="floatingChatForm" class="floating-chatbot-form">
+                <input type="text" id="floatingUserInput" placeholder="Ask something about your health..." autocomplete="off">
+                <button type="submit" id="floatingSubmitButton">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+        
+    </div>
+
+    
+    <script>
+        function toggleSidebar() {
+            let sidebar = document.getElementById("sidebar");
+            let content = document.getElementById("content");
+            let openBtn = document.getElementById("openBtn");
+            
+            if (sidebar.style.left === "0px") {
+                sidebar.style.left = "-250px";
+                content.classList.remove("expanded");
+                openBtn.classList.remove("sidebar-open");
+            } else {
+                sidebar.style.left = "0px";
+                content.classList.add("expanded");
+                openBtn.classList.add("sidebar-open");
+            }
+        }
+
+        const quotes = [
+            "Take a deep breath. You are enough, just as you are.",
+            "Every day is a fresh start. Make it count.",
+            "You are stronger than you know.",
+            "Be patient with yourself. You're doing the best you can.",
+            "Your mental health matters. Take care of yourself."
+        ];
+        let currentQuoteIndex = 0;
+        function changeQuote() {
+            const quoteElement = document.getElementById('quote');
+            quoteElement.classList.add('slide-out');
+            setTimeout(() => {
+                currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+                quoteElement.textContent = quotes[currentQuoteIndex];
+                quoteElement.classList.remove('slide-out');
+                quoteElement.classList.add('slide-in');
+                setTimeout(() => {
+                    quoteElement.classList.remove('slide-in');
+                }, 500);
+            }, 500);
+        }
+        setInterval(changeQuote, 5000);
+    </script>
+    <script src="/AI_Chatbot/floating-chatbot.js"></script>
+    <script src="/AI_Chatbot/script.js"></script>
+</body>
+</html>

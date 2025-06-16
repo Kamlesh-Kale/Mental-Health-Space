@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor AI - Floating Chatbot</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="floating-chatbot.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Original Doctor AI Interface -->
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="new-chat-btn">
+                <button id="newChatButton">
+                    <i class="fas fa-plus"></i> New chat
+                </button>
+            </div>
+            <div class="chat-history">
+                <!-- Chat history items will be dynamically added here -->
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="doctor-profile">
+                <div class="doctor-avatar">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <h1>Doctor AI</h1>
+                <p>Your personal medical assistant powered by AI</p>
+            </div>
+
+            <div class="medical-disclaimer">
+                <h3>Medical Disclaimer:</h3>
+                <p>This AI assistant is for informational purposes only and is not a substitute for professional medical
+                    advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health
+                    provider with any questions you may have regarding a medical condition.</p>
+            </div>
+
+            <div class="example-questions">
+                <h2>Examples</h2>
+                <div class="example-grid">
+                    <div class="example-card" id="flu-symptoms">
+                        "What are the symptoms of the flu?"
+                    </div>
+                    <div class="example-card" id="diabetes-management">
+                        "How can I manage my diabetes better?"
+                    </div>
+                    <div class="example-card" id="minor-burn">
+                        "What should I do for a minor burn?"
+                    </div>
+                    <div class="example-card" id="headache-concern">
+                        "Is my headache a sign of something serious?"
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-container" id="chatContainer">
+                <!-- Chat messages will appear here -->
+            </div>
+
+            <div class="input-area">
+                <form id="chatForm">
+                    <input type="text" id="userInput" placeholder="Ask something about your health..."
+                        autocomplete="off">
+                    <button type="submit" id="sendButton">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="floating-chatbot.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

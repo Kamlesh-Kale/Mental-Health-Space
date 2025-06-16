@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depression Severity Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #014dd5; /* Matches sidebar */
+            --secondary-color: #e5f5f9; /* Light blue */
+            --accent-color: #0162f5; /* Deep blue */
+            --text-color: #333;
+            --light-text: #555;
+            --background-color: #f9fafc;
+            --card-background: #ffffff;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            background-image: url('images/mental-health-bg.svg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin: 0 auto;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+        
+        /* Headings */
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        /* Introduction */
+        .intro {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--light-text);
+            font-size: 1rem;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            margin: 20px 0;
+            background-color: var(--secondary-color);
+            border-radius: 20px;
+            height: 10px;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            border-radius: 20px;
+            transition: width 0.3s ease;
+        }
+        
+        /* Questions */
+        .question {
+            display: none;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        
+        .question p {
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        /* Answer Options */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .radio-container {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: var(--border-radius);
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .radio-container:hover {
+            background-color: #d9eef3;
+            transform: translateY(-2px);
+        }
+        
+        .radio-container input[type="radio"] {
+            display: none;
+        }
+        
+        .radio-custom {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            margin-right: 12px;
+            position: relative;
+            display: inline-block;
+            background-color: white;
+        }
+        
+        .radio-container input[type="radio"]:checked + .radio-custom::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+        
+        /* Buttons */
+        button {
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: 15px;
+            width: 100%;
+        }
+        
+        button:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+        
+        /* Results Section */
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            background-color: var(--secondary-color);
+            display: none;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .result h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .result p {
+            margin-bottom: 10px;
+        }
+        
+        .severity {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        
+        /* Restart Button */
+        .restart-btn {
+            margin-top: 20px;
+            background-color: var(--accent-color);
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            button {
+                padding: 10px 20px;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h2>Depression Severity Quiz</h2>
+        <p class="intro">This assessment helps identify symptoms of depression. Please answer each question honestly based on your experiences over the past two weeks.</p>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <form id="quizForm">
+            <div id="questions"></div>
+            <button type="button" id="nextButton" onclick="nextQuestion()">Next</button>
+        </form>
+        <div class="result" id="result">
+            <h3>Assessment Complete</h3>
+            <p id="scoreText"></p>
+            <p id="severityText"></p>
+            <p>This is not a clinical diagnosis. Please consult with a healthcare professional for proper evaluation.</p>
+            <button type="button" class="restart-btn" onclick="restartQuiz()">Take Assessment Again</button>
+        </div>
+        <div id="helplineMessage" style="display: none;"></div>
+
+    </div>
+    
+
+    <script>
+        const questions = [
+            "Little interest or pleasure in doing things",
+            "Feeling down, depressed, or hopeless",
+            "Trouble falling or staying asleep, or sleeping too much",
+            "Feeling tired or having little energy",
+            "Poor appetite or overeating",
+            "Feeling bad about yourself – or that you are a failure or have let yourself or your family down",
+            "Trouble concentrating on things, such as reading the newspaper or watching television",
+            "Moving or speaking so slowly that other people could have noticed. Or the opposite – being so fidgety or restless that you have been moving around a lot more than usual",
+            "Thoughts that you would be better off dead, or of hurting yourself"
+        ];
+
+        const severityLevels = [
+            { min: 1, max: 4, severity: "Minimal depression" },
+            { min: 5, max: 9, severity: "Mild depression" },
+            { min: 10, max: 14, severity: "Moderate depression" },
+            { min: 15, max: 19, severity: "Moderately severe depression" },
+            { min: 20, max: 27, severity: "Severe depression" }
+        ];
+
+        let currentQuestionIndex = 0;
+        let totalScore = 0;
+        const questionContainer = document.getElementById("questions");
+        
+        function showQuestion(index) {
+            questionContainer.innerHTML = "";
+            if (index >= questions.length) {
+                calculateScore();
+                return;
+            }
+            
+           // Update progress bar
+            const progressPercentage = ((index) / questions.length) * 100;
+            document.getElementById("progressBar").style.width = `${progressPercentage}%`;
+            
+            const div = document.createElement("div");
+            div.classList.add("question");
+            div.style.display = "block";
+            
+            let optionsHTML = '<div class="options">';
+            optionsHTML += `<p>${index + 1}. ${questions[index]}</p>`;
+            
+            const options = [
+                { value: 0, text: "Not at all" },
+                { value: 1, text: "Several days" },
+                { value: 2, text: "More than half the days" },
+                { value: 3, text: "Nearly every day" }
+            ];
+            
+            options.forEach(option => {
+                optionsHTML += `
+                <label class="radio-container">
+                    <input type="radio" name="q${index}" value="${option.value}">
+                    <span class="radio-custom"></span>
+                    <span>${option.text}</span>
+                </label>`;
+            });
+            
+            optionsHTML += '</div>';
+            div.innerHTML = optionsHTML;
+            questionContainer.appendChild(div);
+            
+            // Update button text on last question
+            if (index === questions.length - 1) {
+                document.getElementById("nextButton").textContent = "Submit";
+            } else {
+                document.getElementById("nextButton").textContent = "Next";
+            }
+        }
+        
+        function nextQuestion() {
+            const selected = document.querySelector(`input[name='q${currentQuestionIndex}']:checked`);
+            if (!selected) {
+                alert("Please select an answer before proceeding.");
+                return;
+            }
+            totalScore += parseInt(selected.value);
+            currentQuestionIndex++;
+            showQuestion(currentQuestionIndex);
+        }
+        
+        function calculateScore() {
+            let severity = "Unknown";
+            let showMessage = false;
+        
+            for (const level of severityLevels) {
+                if (totalScore >= level.min && totalScore <= level.max) {
+                    severity = level.severity;
+                    if (totalScore >= 20 && totalScore <= 27) {
+                        showMessage = true; // Display helpline message for severe cases
+                    }
+                    break;
+                }
+            }
+        
+            document.getElementById("quizForm").style.display = "none";
+            document.getElementById("result").style.display = "block";
+            document.getElementById("scoreText").innerHTML = `<strong>Your Score:</strong> ${totalScore}/27`;
+            document.getElementById("severityText").innerHTML = `<strong>Assessment Result:</strong> <span class="severity">${severity}</span>`;
+        
+            // Update progress bar to 100%
+            document.getElementById("progressBar").style.width = "100%";
+        
+            // Show message if score is 20-27
+            const helplineDiv = document.getElementById("helplineMessage");
+            if (showMessage) {
+                helplineDiv.innerHTML = `
+                    <p style="margin-top: 15px; font-weight: 600; color: red;">
+                        Your assessment indicates severe depression. You're not alone. Help is available.  
+                        You can call a helpline at 
+                        <a href="tel:+919820466726" style="color: #014dd5; font-weight: 700; text-decoration: none;">
+                            +91-9820466726
+                        </a> for support.
+                    </p>`;
+                helplineDiv.style.display = "block";
+            } else {
+                helplineDiv.style.display = "none";
+            }
+        }
+        
+        
+        
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            totalScore = 0;
+            document.getElementById("result").style.display = "none";
+            document.getElementById("quizForm").style.display = "block";
+            showQuestion(currentQuestionIndex);
+        }
+        
+        showQuestion(currentQuestionIndex);
+    </script>
+</body>
+</html>
